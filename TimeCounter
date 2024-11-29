@@ -1,0 +1,65 @@
+local A = Instance.new("ScreenGui")
+local B = Instance.new("TextLabel")
+local C = workspace.DistributedGameTime
+
+A.Name = "A"
+A.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+A.ResetOnSpawn = false
+
+B.Name = "B"
+B.Parent = A
+B.AnchorPoint = Vector2.new(0, 1)
+B.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+B.BackgroundTransparency = 1
+B.BorderSizePixel = 0
+B.Position = UDim2.new(0, 0, 1, 0)
+B.Size = UDim2.new(0.100, 0, 0.05, 0)
+B.Text = "00:00:00:00"
+B.TextColor3 = Color3.fromRGB(255, 255, 255)
+B.TextScaled = true
+B.TextSize = 10
+B.TextXAlignment = 0
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	local D = workspace.DistributedGameTime - C
+
+	local E = math.floor(D/0.01)
+	local F = math.floor(D/1)
+	local G = math.floor(D/60)
+	local H = math.floor(D/3600)
+
+	local I = H
+	local J = G - (60*H)
+	local K = F - (60*G)
+	local L = E - (100*F)
+
+	local M = I
+
+	if M < 10 then
+		M = "0"..M
+	end
+
+	local N = J
+
+	if N < 10 then
+		N = "0"..N
+	end
+
+	local O = K
+
+	if O < 10 then
+		O = "0"..O
+	end
+
+	local P = L
+
+	if L < 100 then
+		P = ""..L
+	end
+
+	if L < 10 then
+		P = "0"..L
+	end
+
+	B.Text = M..":"..N..":"..O..":"..P
+end)
